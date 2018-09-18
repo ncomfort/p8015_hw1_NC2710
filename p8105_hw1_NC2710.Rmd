@@ -19,16 +19,22 @@ library(tidyverse)
 This “problem” focuses on the use of R Markdown to write reproducible reports, GitHub for version control, and R Projects to organize your work.
 
 To address Problem 0.1, I've:
-*created a public GitHub repo titled p8105_hw1_NC2710 + local R Project
-*create a single .Rmd file named p8105_hw1_NC2710.Rmd that renders to github_document
+
+* Created a public GitHub repo titled p8105_hw1_NC2710 + local R Project
+
+* Created a single .Rmd file named p8105_hw1_NC2710.Rmd that renders to github_document
 
 ## Problem 0.2
 
 To address Problem 0.2, I will make sure to have:
-* meaningful variable / object names
-* readable code (one command per line; adequate whitespace and indentation; etc)
-* clearly-written text to explain code and results
-* a lack of superfluous code (e.g. no unused variables are defined)
+
+* Meaningful variable / object names
+
+* Readable code (one command per line; adequate whitespace and indentation; etc)
+
+* Clearly-written text to explain code and results
+
+* A lack of superfluous code (e.g. no unused variables are defined)
 
 ## Problem 1 
 
@@ -37,9 +43,13 @@ To address Problem 0.2, I will make sure to have:
 This problem focuses on variable types and coercion.
 
 The code chunk below creates a data frame comprised of: 
+
 * A random sample of size 10 from a uniform[0, 5] distribution
+
 * A logical vector indicating whether elements of the sample are greater than 2
+
 * A (length-10) character vector
+
 * A (length-10) factor vector
 
 ```{r Problem_1_data_frame}
@@ -47,7 +57,7 @@ The code chunk below creates a data frame comprised of:
 set.seed(1) # ensures reproducibility when using the random number generator, rnorm
 
 prob1_df = tibble( # create data frame
-  prob1_rand_sample = rnorm(10, mean = 0, sd = 5), # create a random sample of size 10 from a uniform[0,5] distribution
+  prob1_rand_sample = runif(10, min = 0, max = 5), # create a random sample of size 10 from a uniform[0,5] distribution
   prob1_vec_logical = prob1_rand_sample > 2, # create a logical vector which evalues prob1_rand_sample
   prob1_vec_char = c("This", "is", "an", "example", "character", "vector", "with", "length", "equals", "ten"), # create an example character vector of length 10
   prob1_vec_factor = factor(c("red", "orange", "yellow", "green", "blue", "cyan", "purple", "indigo", "violet", "gray")) # create a factor vector of length 10 (i.e. with 10 levels) 
@@ -55,7 +65,8 @@ prob1_df = tibble( # create data frame
 
 ```
 
-*Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?* 
+*Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?*
+
 The below code chunk attempts to take the mean of each variable in the dataframe. However, the function is only executed for the variables prob1_rand_sample and prob1_vec_logical, which are of the types numeric and logical, respectively. The mean function apparently does not work on character and factor variables. 
 
 I was surprised to see that R can indeed take the mean of a logical variable. It appears that R treats "TRUE's" as "1"s and "FALSE's" as "0's" to compute the mean. 
@@ -94,10 +105,6 @@ When converting the character variable, prob1_vec_char, to a factor, R creates a
 
 Then, when converting this factor variable, prob1_char_to_fac, to numeric, R creates the following string of numbers: 'r print(prob1_fac_to_num)'. The numbers correspond to the position that this character took on when it was organized in levels. For example, the first number in the string prob1_fac_to_num is "8" because the word "This" would be in position 8 out of 10 when all the words are organized in alphabetical order as factor levels. 
 
-When converting the factor variable, prob1_vec_factor, to numeric, it doesn't look like much has changed, but in the Environment tab we can see that this variable is now a character with length=10. However, R cannot convert the character variable to numeric. The output reads "NA." It makes intuitive sense that a character cannot be converted to a numeric scale. 
-
-In summary, you can explicitly convert variables from one type to another, but this sometimes breaks down, such as when trying to convert a character to a numeric variable. 
-
 ```{r Problem_1_convert_variables}
 
 # convert character variable to factor
@@ -106,6 +113,14 @@ print(prob1_char_to_fac)
 # convert factor to numeric
 prob1_fac_to_num <- as.numeric(prob1_char_to_fac)
 print(prob1_fac_to_num)
+
+```
+
+When converting the factor variable, prob1_vec_factor, to numeric, it doesn't look like much has changed, but in the Environment tab we can see that this variable is now a character with length=10. However, R cannot convert the character variable to numeric. The output reads "NA." It makes intuitive sense that a character cannot be converted to a numeric scale. 
+
+In summary, you can explicitly convert variables from one type to another, but this sometimes breaks down, such as when trying to convert a character to a numeric variable. 
+
+```{r Problem_1_convert variables}
 
 # convert factor variable to character
 prob1_fac_to_char <- as.character(prob1_df$prob1_vec_factor)
@@ -123,10 +138,15 @@ print(prob1_char_to_num)
 This problem focuses on plotting and the use of inline R code.
 
 The below code chunk creates a data frame comprised of: 
+
 * x: a random sample of size 1000 from a standard Normal distribution
+
 * y: a random sample of size 1000 from a standard Normal distribution
+
 * A logical vector indicating whether the x + y > 0
+
 * A numeric vector created by coercing the above logical vector
+
 * A factor vector created by coercing the above logical vector
 
 ```{r Problem_2_data_frame}
@@ -141,9 +161,9 @@ prob2_df = tibble( # create data frame
 
 ```
 
-The size of the dataset, prob2_df, is 'r length(prob2_df)'.
-The mean of x is 'r mean(x)' and the median of x is 'r median(x)'.
-The proportion of cases for which the logical vector is TRUE is 'r mean(prob2_vec_logical)'.
+The size of the dataset, prob2_df, is `r length(prob2_df)`.
+The mean of x is `r mean(prob2_df$x)` and the median of x is `r median(prob2_df$x)`.
+The proportion of cases for which the logical vector is TRUE is `r mean(prob2_df$prob2_vec_logical)`.
 
 ### Scatterplot 
 
