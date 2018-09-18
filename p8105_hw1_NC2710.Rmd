@@ -71,6 +71,7 @@ mean(prob1_df$prob1_vec_factor) # mean does not work, returns NA because the arg
 ```
 
 In some cases, you can explicitly convert variables from one type to another.
+<<<<<<< HEAD
 
 *Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens?* 
 
@@ -154,5 +155,32 @@ The proportion of cases for which the logical vector is TRUE is 'r mean(prob2_ve
 
 
 Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+=======
+
+*Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens?* 
+
+When applying as.numeric to a logical variable: Similarly to the way R treated "TRUE" and "FALSE" when applying the mean function, R converts "TRUE's" to "1"s and "FALSE's" to "0"s, returning a numeric string of 0s and 1s. 
+
+When applying as.numeric to a factor variable: R assigns a number to the position of that level when arranged alphabetically. For example, "blue" is the first level because it is the first of the colors (levels) when listed in alphabetical order (as I did not assign levels or specify ordering). Therefore, R assigns a value of "1" to "blue". Thus, when I apply as.numeric to prob1_vec_factor, the output is 'r as.numeric(prob1_df$prob1_vec_factor)' which shows the position of each level if they were to be arranged in alphabetical order. 
+
+as.numeric will not work when applied to a character variable. It returns "NA" and a warning message. Therefore, character variables cannot be converted to numeric variables. 
+
+```{r Problem 1 apply as.numeric, eval = FALSE}
+# eval = FALSE will show the code chunk but not the output, results are not included 
+
+as.numeric(prob1_df$prob1_vec_logical)
+as.numeric(prob1_df$prob1_vec_char)
+as.numeric(prob1_df$prob1_vec_factor)
+
+```
+
+*In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?* 
+
+```{r Problem 1 convert variables}
+
+```
+
+ANSWER: 
+>>>>>>> 91681f9962214252b1c8da74f430feef26b830c6
 
 Export your first scatterplot to your project directory using ggsave.
