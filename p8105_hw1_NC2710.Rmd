@@ -6,8 +6,11 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-get(wd) # 
+get(wd) # show that I'm in a reasonable working directory
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
 ```
 
 ## Problem 0.1
@@ -18,7 +21,39 @@ To address Problem 0.1, I've:
 * created a public GitHub repo titled p8105_hw1_NC2710 + local R Project
 * create a single .Rmd file named p8105_hw1_NC2710.Rmd that renders to github_document
 
+## Problem 0.2
 
+To address Problem 0.2, I will make sure to have:
+* meaningful variable / object names
+* readable code (one command per line; adequate whitespace and indentation; etc)
+* clearly-written text to explain code and results
+* a lack of superfluous code (e.g. no unused variables are defined)
 
+## Problem 1 
+
+This problem focuses on variable types and coercion.
+
+The code chunk below creates a data frame comprised of: 
+* A random sample of size 10 from a uniform[0, 5] distribution
+* A logical vector indicating whether elements of the sample are greater than 2
+* A (length-10) character vector
+* A (length-10) factor vector
+
+```{r}
+
+prob1_df = tibble( # create data frame
+  prob1_rand_sample = rnorm(10, mean = 0, sd = 5), # create a random sample of size 10 from a uniform[0,5] distribution
+  prob1_vec_logical = prob1_rand_sample > 2, # create a logical vector which evalues prob1_rand_sample
+  prob1_vec_char = c("This", "is", "an", "example", "character", "vector", "with", "length", "equals", "ten"), # create an example character vector of length 10
+  prob1_vec_factor = factor(c("red", "orange", "yellow", "green", "blue", "cyan", "purple", "indigo", "violet", "gray")) # create a factor vector of length 10 (i.e. with 10 levels) 
+)
+
+```
+
+*Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?* 
+
+```{r}
+
+```
 
 
