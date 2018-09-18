@@ -147,26 +147,44 @@ The proportion of cases for which the logical vector is TRUE is 'r mean(prob2_ve
 
 ### Scatterplot 
 
-The below code chunk makes a scatterplot of y vs x.
-
-Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help).
+The below code chunk makes a scatterplot of y vs x. The color differentiates whether the following is true or false: x + y > 0. 
 
 ```{r Problem_2_scatterplot}
-# first, make a data frame to contain the variables for our plot
 
+# first, make a data frame to contain the variables for our plot
 plot_df = tibble(
   prob2_df$x,
   prob2_df$y,
 )
 
 # make a scatterplot of y vs x
-ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = "rainbow")) + geom_point()
+# the color scale uses the logical vector which evaluates whether x + y > 0
+ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_logical)) + geom_point()
 
 ```
 
-Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+*Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.* 
 
-```{r Problem_2_color_scales}
+Because the numeric vector is created by coercing the logical vector (which can take the form of either TRUE or FALSE), the numeric vector contains only 0s and 1s (0s for FALSE and 1s for TRUE). Thus, while it apperas that using a numeric variable to create a color code creates a gradient scale, in this case we have only two colors because these colors correspond to "0" (black) and "1" (blue). 
+
+```{r Problem_2_color_scale_numeric}
+
+# make a scatterplot of y vs x
+# the color scale uses the numeric vector, prob2_vec_num
+ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_num)) + geom_point()
 
 ```
 
+As you'll see from the code chunk below, color coding by the factor vector produces the same graph as color coding by the logical vector. That is because the factor vector was created by coercing the logical vector, so essentially all that changed is the data type and that logical "TRUEs" and "FALSEs" have become stored into two levels of a factor. 
+
+```{r Problem_2_color_scale_factor}
+
+# make a scatterplot of y vs x
+# the color scale uses the factor vector, prob2_vec_factor
+ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_factor)) + geom_point()
+
+```
+
+This homework assignment was useful for exploring data types, getting introductory experience to plotting, and most importantly - learning how to commit and push to GitHub! Looking forward to learning more. 
+
+-- Nicole Comfort 
