@@ -1,0 +1,24 @@
+---
+title: "p8105_hw1_NC2710"
+author: "Nicole Comfort"
+date: "9/18/2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+get(wd) # 
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 0.1
+
+This “problem” focuses on the use of R Markdown to write reproducible reports, GitHub for version control, and R Projects to organize your work.
+
+To address Problem 0.1, I've:
+* created a public GitHub repo titled p8105_hw1_NC2710 + local R Project
+* create a single .Rmd file named p8105_hw1_NC2710.Rmd that renders to github_document
+
+
+
+
+
