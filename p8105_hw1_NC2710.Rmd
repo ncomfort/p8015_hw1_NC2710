@@ -6,6 +6,7 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
+remove(list=ls()) # start with clear environment
 get(wd) # show that I'm in a reasonable working directory
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -39,7 +40,9 @@ The code chunk below creates a data frame comprised of:
 * A (length-10) character vector
 * A (length-10) factor vector
 
-```{r}
+```{r Problem 1 data frame}
+
+set.seed(1) # ensures reproducibility when using the random number generator, rnorm
 
 prob1_df = tibble( # create data frame
   prob1_rand_sample = rnorm(10, mean = 0, sd = 5), # create a random sample of size 10 from a uniform[0,5] distribution
@@ -52,8 +55,19 @@ prob1_df = tibble( # create data frame
 
 *Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?* 
 
-```{r}
+The below code chunk attempts to take the mean of each variable in the dataframe. However, the function is only executed for the variables, prob1_rand_sample and prob1_vec_logical, which are of the types numeric and logical, respectively. 
+
+I am surprised to see that R can take the mean of a logical variable. It appears that R treats "TRUE's" as "1"s and "FALSE's" as "0's" to compute the mean. 
+
+```{r Problem 1 means}
+
+mean(prob1_df$prob1_rand_sample) # mean works
+mean(prob1_df$prob1_vec_logical) # mean works
+mean(prob1_df$prob1_vec_char) # mean does not work, returns NA because the argument is not numeric or logical
+mean(prob1_df$prob1_vec_factor) # mean does not work, returns NA because the argument is not numeric or logical
 
 ```
+
+*In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens? In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?* 
 
 
