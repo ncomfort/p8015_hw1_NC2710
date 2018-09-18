@@ -7,7 +7,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 remove(list=ls()) # start with clear environment
-get(wd) # show that I'm in a reasonable working directory
+getwd() # show that I'm in a reasonable working directory
 knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
@@ -31,6 +31,8 @@ To address Problem 0.2, I will make sure to have:
 * a lack of superfluous code (e.g. no unused variables are defined)
 
 ## Problem 1 
+
+### Variable types and coercion
 
 This problem focuses on variable types and coercion.
 
@@ -115,5 +117,42 @@ print(prob1_char_to_num)
 
 ```
 
-ANSWER: 
+## Problem 2 
 
+### Inline R Code 
+
+This problem focuses on plotting and the use of inline R code.
+
+The below code chunk creates a data frame comprised of: 
+* x: a random sample of size 1000 from a standard Normal distribution
+* y: a random sample of size 1000 from a standard Normal distribution
+* A logical vector indicating whether the x + y > 0
+* A numeric vector created by coercing the above logical vector
+* A factor vector created by coercing the above logical vector
+
+```{r Problem 2 data frame}
+
+prob2_df = tibble( # create data frame
+  x = rnorm(1000, mean = 0, sd = 1), # create a random sample of size 10000 from a standard normal distribution
+  y = rnorm(1000, mean = 0, sd = 1), 
+  prob2_vec_logical = x + y > 0, # logical vector evaluating whether x + y > 0
+  prob2_vec_num = as.numeric(prob2_vec_logical), # coerces the logical vector to numeric vector
+  prob2_vec_factor = as.factor(prob2_vec_logical), # coerces the logical vector to factor vector 
+)
+
+```
+
+The size of the dataset, prob2_df, is 'r length(prob2_df)'.
+The mean of x is 'r mean(x)' and the median of x is 'r median(x)'.
+The proportion of cases for which the logical vector is TRUE is 'r mean(prob2_vec_logical)'. 
+
+### Scatterplot 
+
+```{r Problem 2 scatterplot}
+
+```
+
+
+Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+
+Export your first scatterplot to your project directory using ggsave.
