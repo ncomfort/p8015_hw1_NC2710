@@ -170,7 +170,6 @@ The proportion of cases for which the logical vector is TRUE is `r mean(prob2_df
 The below code chunk makes a scatterplot of y vs x. The color differentiates whether the following is true or false: x + y > 0. 
 
 ```{r Problem_2_scatterplot}
-
 # first, make a data frame to contain the variables for our plot
 plot_df = tibble(
   prob2_df$x,
@@ -179,10 +178,13 @@ plot_df = tibble(
 
 # make a scatterplot of y vs x
 # the color scale uses the logical vector which evaluates whether x + y > 0
-ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_logical)) + geom_point()
+plot_1 <- ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_logical)) + geom_point()
+
+# edit the title, axis label, legend title
+plot_1 + labs(title = "Scatterplot 1 of y vs x", subtitle = "Plot 1 of 3", x = "x", y = "y", color = "Is x + y > 0?")
 
 # export scatterplot to project directory using ggsave
-ggsave(p8105_hw1_NC2710_prob2_scatterplot)
+ggsave(filename = "p8105_hw1_NC2710_prob2_scatterplot.pdf")
 
 ```
 
@@ -194,7 +196,10 @@ Because the numeric vector is created by coercing the logical vector (which can 
 
 # make a scatterplot of y vs x
 # the color scale uses the numeric vector, prob2_vec_num
-ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_num)) + geom_point()
+plot_2 <- ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_num)) + geom_point()
+
+# edit the title, axis label, legend title
+plot_2 + labs(title = "Scatterplot of y vs x", subtitle = "Plot 2 of 3", x = "x", y = "y", color = "Is x + y > 0? 1 = Yes; 0 = No")
 
 ```
 
@@ -204,7 +209,10 @@ As you'll see from the code chunk below, color coding by the factor vector produ
 
 # make a scatterplot of y vs x
 # the color scale uses the factor vector, prob2_vec_factor
-ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_factor)) + geom_point()
+plot_3 <- ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_factor)) + geom_point()
+
+# edit the title, axis label, legend title
+plot_2 + labs(title = "Scatterplot of y vs x", subtitle = "Plot 3 of 3", x = "x", y = "y", color = "Is x + y > 0? 1 = Yes; 0 = No")
 
 ```
 
