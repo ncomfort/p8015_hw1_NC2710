@@ -181,6 +181,9 @@ plot_df = tibble(
 # the color scale uses the logical vector which evaluates whether x + y > 0
 ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = prob2_df$prob2_vec_logical)) + geom_point()
 
+# export scatterplot to project directory using ggsave
+ggsave(p8105_hw1_NC2710_prob2_scatterplot)
+
 ```
 
 *Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.* 
