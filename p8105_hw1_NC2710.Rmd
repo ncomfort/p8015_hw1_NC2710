@@ -55,9 +55,9 @@ prob1_df = tibble( # create data frame
 
 *Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?* 
 
-The below code chunk attempts to take the mean of each variable in the dataframe. However, the function is only executed for the variables, prob1_rand_sample and prob1_vec_logical, which are of the types numeric and logical, respectively. 
+The below code chunk attempts to take the mean of each variable in the dataframe. However, the function is only executed for the variables prob1_rand_sample and prob1_vec_logical, which are of the types numeric and logical, respectively. The mean function apparently does not work on character and factor variables. 
 
-I am surprised to see that R can take the mean of a logical variable. It appears that R treats "TRUE's" as "1"s and "FALSE's" as "0's" to compute the mean. 
+I was surprised to see that R can indeed take the mean of a logical variable. It appears that R treats "TRUE's" as "1"s and "FALSE's" as "0's" to compute the mean. 
 
 ```{r Problem 1 means}
 
@@ -68,6 +68,52 @@ mean(prob1_df$prob1_vec_factor) # mean does not work, returns NA because the arg
 
 ```
 
-*In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens? In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?* 
+In some cases, you can explicitly convert variables from one type to another.
 
+*Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens?* 
+
+When applying as.numeric to a logical variable: Similarly to the way R treated "TRUE" and "FALSE" when applying the mean function, R converts "TRUE's" to "1"s and "FALSE's" to "0"s, returning a numeric string of 0s and 1s. 
+
+When applying as.numeric to a factor variable: R assigns a number to the position of that level when arranged alphabetically. For example, "blue" is the first level because it is the first of the colors (levels) when listed in alphabetical order (as I did not assign levels or specify ordering). Therefore, R assigns a value of "1" to "blue". Thus, when I apply as.numeric to prob1_vec_factor, the output is 'r as.numeric(prob1_df$prob1_vec_factor)' which shows the position of each level if they were to be arranged in alphabetical order. 
+
+as.numeric will not work when applied to a character variable. It returns "NA" and a warning message. Therefore, character variables cannot be converted to numeric variables. 
+
+```{r Problem 1 apply as.numeric, eval = FALSE}
+# eval = FALSE will show the code chunk but not the output, results are not included 
+
+as.numeric(prob1_df$prob1_vec_logical)
+as.numeric(prob1_df$prob1_vec_char)
+as.numeric(prob1_df$prob1_vec_factor)
+
+```
+
+*In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?* 
+
+When converting the character variable, prob1_vec_char, to a factor, R creates a factor with 10 levels (because the character variable was length = 10 with 10 unique words). It organizes the levels into alphabetical order. 
+
+Then, when converting this factor variable, prob1_char_to_fac, to numeric, R creates the following string of numbers: 'r print(prob1_fac_to_num)'. The numbers correspond to the position that this character took on when it was organized in levels. For example, the first number in the string prob1_fac_to_num is "8" because the word "This" would be in position 8 out of 10 when all the words are organized in alphabetical order as factor levels. 
+
+When converting the factor variable, prob1_vec_factor, to numeric, it doesn't look like much has changed, but in the Environment tab we can see that this variable is now a character with length=10. However, R cannot convert the character variable to numeric. The output reads "NA." It makes intuitive sense that a character cannot be converted to a numeric scale. 
+
+In summary, you can explicitly convert variables from one type to another, but this sometimes breaks down, such as when trying to convert a character to a numeric variable. 
+
+```{r Problem 1 convert variables}
+
+# convert character variable to factor
+prob1_char_to_fac <- as.factor(prob1_df$prob1_vec_char)
+print(prob1_char_to_fac)
+# convert factor to numeric
+prob1_fac_to_num <- as.numeric(prob1_char_to_fac)
+print(prob1_fac_to_num)
+
+# convert factor variable to character
+prob1_fac_to_char <- as.character(prob1_df$prob1_vec_factor)
+print(prob1_fac_to_char)
+# convert character to numeric 
+prob1_char_to_num <- as.numeric(prob1_fac_to_char)
+print(prob1_char_to_num)
+
+```
+
+ANSWER: 
 
