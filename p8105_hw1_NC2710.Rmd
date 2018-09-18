@@ -19,8 +19,8 @@ library(tidyverse)
 This “problem” focuses on the use of R Markdown to write reproducible reports, GitHub for version control, and R Projects to organize your work.
 
 To address Problem 0.1, I've:
-* created a public GitHub repo titled p8105_hw1_NC2710 + local R Project
-* create a single .Rmd file named p8105_hw1_NC2710.Rmd that renders to github_document
+*created a public GitHub repo titled p8105_hw1_NC2710 + local R Project
+*create a single .Rmd file named p8105_hw1_NC2710.Rmd that renders to github_document
 
 ## Problem 0.2
 
@@ -42,7 +42,7 @@ The code chunk below creates a data frame comprised of:
 * A (length-10) character vector
 * A (length-10) factor vector
 
-```{r Problem 1 data frame}
+```{r Problem_1_data_frame}
 
 set.seed(1) # ensures reproducibility when using the random number generator, rnorm
 
@@ -56,12 +56,11 @@ prob1_df = tibble( # create data frame
 ```
 
 *Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?* 
-
 The below code chunk attempts to take the mean of each variable in the dataframe. However, the function is only executed for the variables prob1_rand_sample and prob1_vec_logical, which are of the types numeric and logical, respectively. The mean function apparently does not work on character and factor variables. 
 
 I was surprised to see that R can indeed take the mean of a logical variable. It appears that R treats "TRUE's" as "1"s and "FALSE's" as "0's" to compute the mean. 
 
-```{r Problem 1 means}
+```{r Problem_1_means}
 
 mean(prob1_df$prob1_rand_sample) # mean works
 mean(prob1_df$prob1_vec_logical) # mean works
@@ -71,7 +70,6 @@ mean(prob1_df$prob1_vec_factor) # mean does not work, returns NA because the arg
 ```
 
 In some cases, you can explicitly convert variables from one type to another.
-<<<<<<< HEAD
 
 *Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens?* 
 
@@ -81,7 +79,7 @@ When applying as.numeric to a factor variable: R assigns a number to the positio
 
 as.numeric will not work when applied to a character variable. It returns "NA" and a warning message. Therefore, character variables cannot be converted to numeric variables. 
 
-```{r Problem 1 apply as.numeric, eval = FALSE}
+```{r Problem_1_apply_as.numeric, eval = FALSE}
 # eval = FALSE will show the code chunk but not the output, results are not included 
 
 as.numeric(prob1_df$prob1_vec_logical)
@@ -100,7 +98,7 @@ When converting the factor variable, prob1_vec_factor, to numeric, it doesn't lo
 
 In summary, you can explicitly convert variables from one type to another, but this sometimes breaks down, such as when trying to convert a character to a numeric variable. 
 
-```{r Problem 1 convert variables}
+```{r Problem_1_convert_variables}
 
 # convert character variable to factor
 prob1_char_to_fac <- as.factor(prob1_df$prob1_vec_char)
@@ -131,7 +129,7 @@ The below code chunk creates a data frame comprised of:
 * A numeric vector created by coercing the above logical vector
 * A factor vector created by coercing the above logical vector
 
-```{r Problem 2 data frame}
+```{r Problem_2_data_frame}
 
 prob2_df = tibble( # create data frame
   x = rnorm(1000, mean = 0, sd = 1), # create a random sample of size 10000 from a standard normal distribution
@@ -145,42 +143,30 @@ prob2_df = tibble( # create data frame
 
 The size of the dataset, prob2_df, is 'r length(prob2_df)'.
 The mean of x is 'r mean(x)' and the median of x is 'r median(x)'.
-The proportion of cases for which the logical vector is TRUE is 'r mean(prob2_vec_logical)'. 
+The proportion of cases for which the logical vector is TRUE is 'r mean(prob2_vec_logical)'.
 
 ### Scatterplot 
 
-```{r Problem 2 scatterplot}
+The below code chunk makes a scatterplot of y vs x.
+
+Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help).
+
+```{r Problem_2_scatterplot}
+# first, make a data frame to contain the variables for our plot
+
+plot_df = tibble(
+  prob2_df$x,
+  prob2_df$y,
+)
+
+# make a scatterplot of y vs x
+ggplot(plot_df, aes(x = prob2_df$x, y = prob2_df$y, color = "rainbow")) + geom_point()
 
 ```
 
+Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
 
-Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
-=======
-
-*Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens?* 
-
-When applying as.numeric to a logical variable: Similarly to the way R treated "TRUE" and "FALSE" when applying the mean function, R converts "TRUE's" to "1"s and "FALSE's" to "0"s, returning a numeric string of 0s and 1s. 
-
-When applying as.numeric to a factor variable: R assigns a number to the position of that level when arranged alphabetically. For example, "blue" is the first level because it is the first of the colors (levels) when listed in alphabetical order (as I did not assign levels or specify ordering). Therefore, R assigns a value of "1" to "blue". Thus, when I apply as.numeric to prob1_vec_factor, the output is 'r as.numeric(prob1_df$prob1_vec_factor)' which shows the position of each level if they were to be arranged in alphabetical order. 
-
-as.numeric will not work when applied to a character variable. It returns "NA" and a warning message. Therefore, character variables cannot be converted to numeric variables. 
-
-```{r Problem 1 apply as.numeric, eval = FALSE}
-# eval = FALSE will show the code chunk but not the output, results are not included 
-
-as.numeric(prob1_df$prob1_vec_logical)
-as.numeric(prob1_df$prob1_vec_char)
-as.numeric(prob1_df$prob1_vec_factor)
+```{r Problem_2_color_scales}
 
 ```
 
-*In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?* 
-
-```{r Problem 1 convert variables}
-
-```
-
-ANSWER: 
->>>>>>> 91681f9962214252b1c8da74f430feef26b830c6
-
-Export your first scatterplot to your project directory using ggsave.
